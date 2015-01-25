@@ -2,15 +2,16 @@ module Game2048
   class AiInput
     @@last_move = nil
     extend Forwardable
-    attr_reader :board, :state, :move
+    attr_reader :board, :state, :move, :strategy
     
-    def initialize(board)
+    def initialize(board, strategy)
       @board = board
       @state = State.determine(board)
+      @strategy = strategy
     end
 
-    def self.get_input(board)
-      new(board).get_input
+    def self.get_input(board, strategy)
+      new(board, strategy).get_input
     end
 
     def self.set_last_move(direction)
@@ -59,7 +60,7 @@ module Game2048
     end
 
     def get_input
-      vince_strategy
+      send(strategy)
       binding.pry unless valid_move?
       raise("bad move passed") unless valid_move?
       @move

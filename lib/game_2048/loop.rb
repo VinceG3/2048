@@ -1,21 +1,23 @@
 module Game2048
   class Loop
-    attr_reader :board, :input, :output, :num_times
+    attr_reader :board, :input, :output, :num_times, :strategy
 
-    def initialize(board: Board.create, input: AiInput, output: ConsoleDisplay, times: 1, sleep: true)
+    def initialize(board: Board.create, input: AiInput, output: ConsoleDisplay, times: 1, sleep: true, strategy: :dumb_strategy)
       @board = board
       @input = input
       @output = output
       @num_times = times
       @stats = {}
       @sleep = sleep
+      @strategy = strategy
     end
 
-    def self.start(input: KeyboardInput, output: ConsoleDisplay, times: 1, sleep: true)
+    def self.start(input: KeyboardInput, output: ConsoleDisplay, times: 1, sleep: true, strategy: :dumb_strategy)
       new(input: input,
           output: output,
           times: times,
-          sleep: sleep).start
+          sleep: sleep,
+          strategy: strategy).start
     end
 
     def start
@@ -29,7 +31,7 @@ module Game2048
         output._display(board)
         return :win if board.win?
         return lose(board.largest) if board.lose?
-        return :quit if :quit == apply_input(input.get_input(board))
+        return :quit if :quit == apply_input(input.get_input(board, strategy))
       end
     end
 
