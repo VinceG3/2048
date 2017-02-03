@@ -5,3 +5,5 @@ Run the game with keyboard controls: `ruby 2048.rb`
 Run the game with AI input: `ruby 2048.rb ai`
 
 Run the game 10 times with AI input, benchmarking how many moves the game lasted: `ruby 2048 aibench`
+
+Tested on Ruby 2.3 and 2.4
