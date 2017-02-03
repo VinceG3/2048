@@ -31,8 +31,13 @@ module Game2048
         output._display(board)
         return :win if board.win?
         return lose(board.largest) if board.lose?
-        return :quit if :quit == apply_input(input.get_input(board, strategy))
+        retval = step
+        return :quit if :quit == retval
       end
+    end
+
+    def step
+      apply_input(input.get_input(board, strategy))
     end
 
     def lose(largest)

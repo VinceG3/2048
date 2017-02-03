@@ -1,6 +1,6 @@
 module Game2048
   class KeyboardInput
-    def self.get_input(board)
+    def self.get_input(board, strategy)
       return get_symbol(get_char)
     end
 
